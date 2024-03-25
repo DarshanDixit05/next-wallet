@@ -1,18 +1,19 @@
-import { PrismaClient } from '@next-wallet/db/client';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-
-const client = new PrismaClient();
+import { authOptions } from '../../lib/auth';
 
 export const GET = async () => {
-    await client.user.create({
-        data: {
-            email:"email.com",
-            name:"test",
-            number:"1919",
-            password:"12121"
-        }
-    })
+    const session = await getServerSession(authOptions);
+    if(session?.user)
+    {
+        return NextResponse.json({
+            user:session?.user
+        })
+    }
+
     return NextResponse.json({
-        message: "hi there"
+        message:"User not logged in"
+    },{
+        status:403
     })
 }

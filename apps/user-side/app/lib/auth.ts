@@ -1,8 +1,6 @@
-import {PrismaClient} from "@next-wallet/db/client"
+import prisma from "@next-wallet/db/client"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient()
 
 export const authOptions = {
     providers: [
