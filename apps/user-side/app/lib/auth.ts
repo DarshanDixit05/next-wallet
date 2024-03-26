@@ -11,6 +11,7 @@ export const authOptions = {
             password: { label: "Password", type: "password", required: true }
           },
           async authorize(credentials: any) {
+            console.log(credentials);
             const hashedPassword = await bcrypt.hash(credentials.password, 10);
             const existingUser = await prisma.user.findFirst({
                 where: {
